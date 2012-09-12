@@ -20,7 +20,8 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.entity.CreatureSpawnEvent;
+// TODO: Removed until optimizations can be made
+// import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -238,6 +239,8 @@ public class ProtectionListener extends DeityListener {
         Entity eAttacker = event.getDamager();
         Entity eDefender = event.getEntity();
         if (eAttacker instanceof Projectile) {
+        	// Removed snowballs from event, RR 9-11-12
+        	if (eAttacker.getType() == EntityType.SNOWBALL) { return; }
             Projectile proj = (Projectile) eAttacker;
             eAttacker = proj.getShooter();
         }
@@ -270,6 +273,8 @@ public class ProtectionListener extends DeityListener {
         }
     }
     
+    /* TODO: Removed until optimizations can be made
+     * 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (event.isCancelled()) { return; }
@@ -280,6 +285,7 @@ public class ProtectionListener extends DeityListener {
             event.setCancelled(true);
         }
     }
+    */
     
     private boolean verifyBlockMove(Block block, BlockFace direction) {
         Block blockTo = block.getRelative(direction);
